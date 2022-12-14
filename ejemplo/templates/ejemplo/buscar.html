@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Document</title>
+  </head>
+  <body>
+      <h1>buscar bebé por nombre</h1>
+    
+      <form action="/bebe/buscar" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit">
+      </form>
+
+      {% for bebe in lista_bebe %}
+      <ul>
+          <li> Nombre: {{bebe.nombre}}, Apellido: {{bebe.apellido}}, DNI: {{bebe.dni}}</li>
+      </ul>
+      {% endfor %}
+
+  </body>
+  </html>

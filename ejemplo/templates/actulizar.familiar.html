@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block titulo%} Modificar un Bebé {% endblock %}
+{% block contenido %}
+
+<!-- Prestar aatención a la variable familiar.id -->
+<form action="/bebe/actualizar/{{ bebe.id }}" method="post"> 
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form>
+
+<h2 style="color:green">{{msg_exito}}</h2>
+
+{% endblock %}

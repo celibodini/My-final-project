@@ -1,5 +1,75 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from ejemplo.models import Familiar
+from forms import Buscar, FamiliarForm
+from django.views import View 
 
-# Create your views here.
 def index(request):
     return render(request, "ejemplo/saludar.html")
+
+def monstrar_familiares(request):
+  lista_bebes = lista_bebes.objects.all()
+  return render(request, "ejemplo/familiares.html", {"lista_bebes": lista_bebes})
+
+class BuscarFamiliar(View):
+    form_class = Buscar
+    template_name = 'ejemplo/buscar.html'
+    initial = {"nombre":""}
+    def get(self, request):
+        form = self.form_class(initial=self.initial)
+        return render(request, self.template_name, {'form':form})
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            nombre = form.cleaned_data.get("nombre")
+            lista_familiares = Familiar.objects.filter(nombre__icontains=nombre).all() 
+            form = self.form_class(initial=self.initial)
+            return render(request, self.template_name, {'form':form, 
+                                                        'lista_familiares':lista_familiares})
+        return render(request, self.template_name, {"form": form})
+
+
+class ActualizarFamiliar(View):
+  form_class = FamiliarForm
+  template_name = 'ejemplo/actualizar_familiar.html'
+  initial = {"nombre":"", "apellido":"", "DNI":""}
+  
+  # prestar atención ahora el method get recibe un parametro pk == primaryKey == identificador único
+  def get(self, request, pk): 
+      Familiar = get_object_or_404(Familiar, pk=pk)
+      form = self.form_class(instance=Familiar)
+      return render(request, self.template_name, {'form':form,'bebe': Familiar})
+
+  # prestar atención ahora el method post recibe un parametro pk == primaryKey == identificador único
+  def post(self, request, pk): 
+      familiar = get_object_or_404(Familiar, pk=pk)
+      form = self.form_class(request.POST ,instance=familiar)
+      if form.is_valid():
+          form.save()
+          msg_exito = f"se actualizó con éxito registro del bebé {form.cleaned_data.get('nombre')}"
+          form = self.form_class(initial=self.initial)
+          return render(request, self.template_name, {'form':form, 
+                                                      'bebe': familiar,
+                                                      'msg_exito': msg_exito})
+      
+      return render(request, self.template_name, {"form": form})
+
+class AltaFamiliar(View):
+
+    form_class = FamiliarForm
+    template_name = 'ejemplo/alta_familiar.html'
+    initial = {"nombre":"", "apellido":"", "DNI":""}
+
+    def get(self, request):
+        form = self.form_class(initial=self.initial)
+        return render(request, self.template_name, {'form':form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
+            msg_exito = f"se cargo con éxito el registro bebé {form.cleaned_data.get('nombre')}"
+            form = self.form_class(initial=self.initial)
+            return render(request, self.template_name, {'form':form, 
+                                                        'msg_exito': msg_exito})
+        
+        return render(request, self.template_name, {"form": form})

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+{% extends 'base.html' %}
+{% block contenido %}
+{% for bebe in lista_bebes %}
+<ul>
+    <li> Nombre: {{bebe.nombre}}, Apellido: {{bebe.apellido}}, DNI: {{bebe.dni}}
+        <!-- Esto agrega un link al form de actulización-->
+        <a href='actualizar/{{ bebe.id }}'>Actualizar</a>
+    </li>
+</ul>
+{% endfor %}
+{%endblock %}
+
+{% block titulo%}
+Lista de todos los bebés
+{% endblock %}
