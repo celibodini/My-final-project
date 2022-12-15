@@ -7,5 +7,5 @@ class Buscar(forms.Form):
 class FamiliarForm(forms.ModelForm):
   class Meta:
     model = Familiar
-    fields = ['nombre', 'direccion', 'numero_pasaporte']
+    fields = ['nombre', 'apellido', 'dni']
 
