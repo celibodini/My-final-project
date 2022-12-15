@@ -1,2 +1,4 @@
 # My-final-project
-My final project CoderHouse
+
+## Pasos para su funcionamiento
+
