@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   $ python manage.py version <title>Document</title>
+
+{% extends 'base.html' %}
+{% block contenido %}
+{% for padres in lista_padres %}
+<ul>
+    <li> Nombre: {{padre.nombre}}, Apellido: {{padre.apellido}}, DNI: {{padre.dni}}
+        <!-- Esto agrega un link al form de actulización-->
+        <a href='actualizar/{{ padres.id }}'>Actualizar</a>
+    </li>
+</ul>
+{% endfor %}
+{%endblock %}
+
+{% block titulo%}
+Lista de todos los padres
+{% endblock %}

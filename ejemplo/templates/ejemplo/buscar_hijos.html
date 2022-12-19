@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Document</title>
+  </head>
+  <body>
+      <h1>buscar hijo por nombre</h1>
+    
+      <form action="/hijo/buscar" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit">
+      </form>
+
+      {% for hijos in lista_hijos %}
+      <ul>
+          <li> Nombre: {{hijo.nombre}}, Apellido: {{hijo.apellido}}, DNI: {{hijo.dni}}</li>
+      </ul>
+      {% endfor %}
+
+  </body>
+  </html>
