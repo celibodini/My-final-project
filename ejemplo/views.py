@@ -12,7 +12,7 @@ def monstrar_familiares(request):
   lista_padres = lista_padres.objects.all()
   return render(request, "ejemplo/familiares.html", {"lista_bebes": lista_bebes, "lista_hijos": lista_hijos, "lista_padres": lista_padres })
 
-class BuscarFamiliar(View):
+class BuscarBebes(View):
     form_class = Buscar
     template_name = 'ejemplo/buscar_bebé.html'
     initial = {"nombre":""}
@@ -29,7 +29,7 @@ class BuscarFamiliar(View):
                                                         'lista_bebes':lista_bebes})
         return render(request, self.template_name, {"form": form})
 
-class BuscarFamiliar(View):
+class BuscarHijos(View):
     form_class = Buscar
     template_name = 'ejemplo/buscar_hijos.html'
     initial = {"nombre":""}
@@ -46,7 +46,7 @@ class BuscarFamiliar(View):
                                                         'lista_hijos':lista_hijos})
         return render(request, self.template_name, {"form": form})
 
-class BuscarFamiliar(View):
+class BuscarPadres(View):
     form_class = Buscar
     template_name = 'ejemplo/buscar_padres.html'
     initial = {"nombre":""}
@@ -64,7 +64,7 @@ class BuscarFamiliar(View):
         return render(request, self.template_name, {"form": form})
 
 
-class ActualizarFamiliar(View):
+class ActualizarBebe(View):
   form_class = FamiliarForm
   template_name = 'ejemplo/actualizar.familiar.html'
   initial = {"nombre":"", "apellido":"", "DNI":""}
@@ -89,7 +89,7 @@ class ActualizarFamiliar(View):
       
       return render(request, self.template_name, {"form": form})
 
-class ActualizarFamiliar(View):
+class ActualizarHijo(View):
   form_class = FamiliarForm
   template_name = 'ejemplo/actualizar.hijos.html'
   initial = {"nombre":"", "apellido":"", "DNI":""}
@@ -114,7 +114,7 @@ class ActualizarFamiliar(View):
       
       return render(request, self.template_name, {"form": form})
 
-class ActualizarFamiliar(View):
+class ActualizarPadre(View):
   form_class = FamiliarForm
   template_name = 'ejemplo/actualizar.padres.html'
   initial = {"nombre":"", "apellido":"", "DNI":""}
@@ -138,3 +138,24 @@ class ActualizarFamiliar(View):
                                                       'msg_exito': msg_exito})
       
       return render(request, self.template_name, {"form": form})
+
+class AltaFamiliar(View):
+
+    form_class = FamiliarForm
+    template_name = 'ejemplo/alta_familiar.html'
+    initial = {"nombre":"", "apellido":"", "dni":""}
+
+    def get(self, request):
+        form = self.form_class(initial=self.initial)
+        return render(request, self.template_name, {'form':form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
+            msg_exito = f"se cargo con éxito el familiar {form.cleaned_data.get('nombre')}"
+            form = self.form_class(initial=self.initial)
+            return render(request, self.template_name, {'form':form, 
+                                                        'msg_exito': msg_exito})
+        
+        return render(request, self.template_name, {"form": form})
