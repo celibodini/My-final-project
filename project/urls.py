@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from ejemplo.views import (index,  monstrar_familiares, BuscarBebes, BuscarPadres, BuscarHijos, ActualizarBebe, ActualizarHijo, ActualizarPadre, AltaFamiliar)
+from ejemplo.views import (index,  monstrar_familiares, BuscarBebes, BuscarPadres, BuscarHijos, ActualizarBebe, ActualizarHijo, ActualizarPadre, AltaFamiliar, FamiliarDetalle, HijosDetalle, PadresDetalle, FamiliarList, HijosList, PadresList, FamiliarCrear, HijosCrear, PadresCrear, FamiliarBorrar, HijosBorrar, PadresBorrar, FamiliarActualizar, HijosActualizar, PadresActualizar)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,4 +28,19 @@ urlpatterns = [
     path('hijos/actualizar/<int:pk>', ActualizarHijo.as_view()),
     path('padre/actualizar/<int:pk>', ActualizarPadre.as_view()),
     path('familiar/alta', AltaFamiliar.as_view()),
+    path('panel-bebes/<int:pk>/detalle', FamiliarDetalle.as_view()),
+    path('panel-hijos/<int:pk>/detalle', HijosDetalle.as_view()),
+    path('panel-padres/<int:pk>/detalle', PadresDetalle.as_view()),
+    path('panel-bebes/', FamiliarList.as_view()),
+    path('panel-hijos/', HijosList.as_view()),
+    path('panel-padres/', PadresList.as_view()),
+    path('panel-bebes/crear', FamiliarCrear.as_view()),
+    path('panel-hijos/crear', HijosCrear.as_view()),
+    path('panel-padres/crear', PadresCrear.as_view()),
+    path('panel-bebes/<int:pk>/borrar', FamiliarBorrar.as_view()),
+    path('panel-hijos/<int:pk>/borrar', HijosBorrar.as_view()),
+    path('panel-padres/<int:pk>/borrar', PadresBorrar.as_view()),
+    path('panel-bebes/<int:pk>/actualizar', FamiliarActualizar.as_view()),
+    path('panel-hijos/<int:pk>/actualizar', HijosActualizar.as_view()),
+    path('panel-Padres/<int:pk>/actualizar', PadresActualizar.as_view()),
 ]

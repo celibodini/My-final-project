@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from ejemplo.models import Familiar, Hijos, Padres
 from forms import Buscar, FamiliarForm
 from django.views import View 
+from django.views.generic import DetailView, ListView, CreateView, DeleteView, UpdateView
 
 def index(request):
     return render(request, "ejemplo/saludar.html")
@@ -159,3 +160,63 @@ class AltaFamiliar(View):
                                                         'msg_exito': msg_exito})
         
         return render(request, self.template_name, {"form": form})
+
+class FamiliarDetalle(DetailView):
+  model = Familiar
+
+class HijosDetalle(DetailView):
+  model = Hijos
+
+class PadresDetalle(DetailView):
+  model = Padres
+
+class FamiliarList(ListView):
+  model = Familiar
+
+class HijosList(ListView):
+  model = Hijos
+
+class PadresList(ListView):
+  model = Padres
+
+class FamiliarCrear(CreateView):
+  model = Familiar
+  success_url = "/panel-bebes"
+  fields = ["nombre", "apellido", "DNI"]
+
+class HijosCrear(CreateView):
+  model = Hijos
+  success_url = "/panel-hijos"
+  fields = ["nombre", "apellido", "DNI"]
+
+class PadresCrear(CreateView):
+  model = Padres
+  success_url = "/panel-padres"
+  fields = ["nombre", "apellido", "DNI"]
+
+class FamiliarBorrar(DeleteView):
+  model = Familiar
+  success_url = "/panel-bebes"
+
+class HijosBorrar(DeleteView):
+  model = Hijos
+  success_url = "/panel-hijos"
+
+class PadresBorrar(DeleteView):
+  model = Padres
+  success_url = "/panel-padres"
+
+class FamiliarActualizar(UpdateView):
+  model = Familiar
+  success_url = "/panel-bebes"
+  fields = ["nombre", "apellido", "DNI"]
+
+class HijosActualizar(UpdateView):
+  model = Hijos
+  success_url = "/panel-hijos"
+  fields = ["nombre", "apellido", "DNI"]
+
+class PadresActualizar(UpdateView):
+  model = Padres
+  success_url = "/panel-padres"
+  fields = ["nombre", "apellido", "DNI"]
