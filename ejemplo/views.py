@@ -8,10 +8,10 @@ def index(request):
     return render(request, "ejemplo/saludar.html")
 
 def monstrar_familiares(request):
-  lista_bebes = lista_bebes.objects.all()
+  lista_bebes = lista_bebes.objects.all(),
+  lista_padres = lista_padres.objects.all(),
   lista_hijos = lista_hijos.objects.all()
-  lista_padres = lista_padres.objects.all()
-  return render(request, "ejemplo/familiares.html", {"lista_bebes": lista_bebes, "lista_hijos": lista_hijos, "lista_padres": lista_padres })
+  return render(request, "ejemplo/familiares.html", {"lista_bebes": lista_bebes, "lista_hijos": lista_hijos, "lista_padres": lista_padres  })
 
 class BuscarBebes(View):
     form_class = Buscar
